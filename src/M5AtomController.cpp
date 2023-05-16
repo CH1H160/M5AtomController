@@ -3,7 +3,7 @@
  * @brief Controller capable of wireless communication by ESP-NOW and wired communication by USB serial
  * @author Ryota Kobayashi
  * @version  V0.1.0
- * @date May 13, 2023
+ * @date May 16, 2023
  * @details Numeric data is sent according to the input of the controller. 
  *          During ESP-NOW, the display turns blue upon successful transmission.
  * @note When using ESP-NOW, change the destination Mac address. 
@@ -108,23 +108,28 @@ void M5AtomController::send(uint8_t value){
 */
 void M5AtomController::update(void){
 
+  uint8_t transition_count = 0;
+
   // Check the input one by one and send the data
-  for(uint8_t i=0; i<PIN_COUNT; i++)
-  {
-    if (!digitalRead(PIN_ARRAY[i]))
-    {
+  for(uint8_t i=0; i<PIN_COUNT; i++){
+    if (!digitalRead(PIN_ARRAY[i])){
       // transmission
       send(i);
 
       // Turn on the LED and show the display
       show_display(i, led_color);
-    }
-    else
-    {
-      // Show green square when idle
-      led_square(CRGB::Green);
+
+      transition_count++;
     }
   }
+
+  if(transition_count == 0){
+    // Show green square when idle
+    led_square(CRGB::Green);
+    
+    transition_count = 0;
+  }
+  
 }
 
 /**
@@ -157,6 +162,7 @@ void M5AtomController::show_display(uint8_t led_mode, CRGB color){
       led_text_c(color);
       break;
   }
+  M5.update();
 }
 
 /**
