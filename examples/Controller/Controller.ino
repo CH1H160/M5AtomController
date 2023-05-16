@@ -2,7 +2,7 @@
  * @file Controller.ino
  * @brief Controller capable of wireless communication by ESP-NOW and wired communication by USB serial
  * @author Ryota Kobayashi
- * @date May 13, 2023
+ * @date May 16, 2023
  * @details Numeric data is sent according to the input of the controller. 
  *          During ESP-NOW, the display turns blue upon successful transmission.
  * @note When using ESP-NOW, change the destination Mac address. 
@@ -11,7 +11,7 @@
 #include <M5AtomController.h>
 
 //! ESP-NOW Destination address
-const uint8_t SLAVE_ADDRESS[6] = { 0x24, 0x0A, 0xC4, 0x5B, 0x07, 0xA4 }; 
+const uint8_t SLAVE_ADDRESS[6] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }; 
 
 //! Wired communication baud rate
 const uint32_t BAUDRATE = 115200;
