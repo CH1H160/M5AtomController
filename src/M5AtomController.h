@@ -23,8 +23,8 @@
 class M5AtomController{
 
 public :
-    M5AtomController(const uint8_t *mac_addr);
-    bool begin(const uint32_t baudrate);
+    M5AtomController();
+    bool begin(const uint8_t *mac_addr, const uint32_t baudrate);
     void send(uint8_t value);
     void update(void);
     void show_display(uint8_t led_mode, CRGB color);
@@ -40,5 +40,9 @@ private :
     void led_text_b(CRGB color);
     void led_text_c(CRGB color);
 };
+
+#if !defined(NO_GLOBAL_INSTANCES)
+extern M5AtomController M5AC;
+#endif
 
 #endif

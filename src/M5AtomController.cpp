@@ -48,9 +48,8 @@ static void on_data_sent(const uint8_t *mac_addr, esp_now_send_status_t status) 
 *
 * @param[in] mac_addr Mac address
 */
-M5AtomController::M5AtomController(const uint8_t *mac_addr){
+M5AtomController::M5AtomController(){
 
-  memcpy(slave_address, mac_addr, 6);
 }
 
 /**
@@ -58,7 +57,9 @@ M5AtomController::M5AtomController(const uint8_t *mac_addr){
 * @param[in] baudrate USB serial baudrate
 * @return Success or failure of connection
 */
-bool M5AtomController::begin(const uint32_t baudrate){
+bool M5AtomController::begin(const uint8_t *mac_addr, const uint32_t baudrate){
+
+  memcpy(slave_address, mac_addr, 6);
 
   M5.begin(true, false, true);
 
@@ -328,3 +329,6 @@ void M5AtomController::led_text_c(CRGB color){
   
 }
 
+#if !defined(NO_GLOBAL_INSTANCES)
+M5AtomController M5AC;
+#endif
