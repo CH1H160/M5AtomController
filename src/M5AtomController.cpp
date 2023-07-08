@@ -103,8 +103,8 @@ void M5AtomController::send(uint8_t value){
   uint8_t data[1] = {value};
 
   // Serial wired transmission
-  Serial.println(value);
-  Serial1.println(value);
+  Serial.write(value);
+  Serial1.write(value);
 
   // ESP-NOW wireless transmission
   esp_now_send(slave_address, data, sizeof(data));
