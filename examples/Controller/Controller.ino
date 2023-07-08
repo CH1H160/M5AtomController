@@ -19,14 +19,12 @@ const uint32_t BAUDRATE = 115200;
 //! Period of loop function
 const uint16_t DELAY_TIME = 100;
 
-M5AtomController atom_client(SLAVE_ADDRESS); 
-
 /**
 * Arduino standard setup function
 * put your setup code here, to run once
 */
 void setup(){
-  if(!atom_client.begin(BAUDRATE)){
+  if(!M5AC.begin(SLAVE_ADDRESS, BAUDRATE)){
     return;
   }
 }
@@ -36,6 +34,6 @@ void setup(){
 * put your main code here, to run repeatedly
 */
 void loop(){
-  atom_client.update();
+  M5AC.update();
   delay(DELAY_TIME);
 }
