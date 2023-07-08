@@ -11,7 +11,7 @@
 #include <M5AtomController.h>
 
 //! ESP-NOW Destination address
-const uint8_t SLAVE_ADDRESS[6] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }; 
+const uint8_t SLAVE_ADDRESS[6] = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff }; 
 
 //! Wired communication baud rate
 const uint32_t BAUDRATE = 115200;
