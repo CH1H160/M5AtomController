@@ -30,7 +30,7 @@ public :
     void show_display(uint8_t led_mode, CRGB color);
 
 private :
-    uint8_t slave_address[];
+    uint8_t slave_address[6];
     void led_arrow_up(CRGB color);
     void led_arrow_down(CRGB color);
     void led_arrow_left(CRGB color);

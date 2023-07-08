@@ -15,6 +15,9 @@
 #include <esp_now.h>
 
 //! Pin setting
+const uint8_t PIN_TX = 26;
+const uint8_t PIN_RX = 32;
+
 const uint8_t PIN_UP = 33;
 const uint8_t PIN_DOWN = 22;
 const uint8_t PIN_LEFT = 19;
@@ -66,7 +69,10 @@ bool M5AtomController::begin(const uint32_t baudrate){
   for(int i=0; i<PIN_COUNT; i++){
     pinMode(PIN_ARRAY[i], INPUT_PULLUP);
   }
+
+  // Serial setting
   Serial.begin(baudrate);
+  Serial1.begin(baudrate, SERIAL_8N1, PIN_RX, PIN_TX);
 
   // WiFi setting
   WiFi.mode(WIFI_STA);
@@ -89,14 +95,15 @@ bool M5AtomController::begin(const uint32_t baudrate){
 
 /**
 * @brief Data transmission
-* @param[in] value USB serial baudrate
+* @param[in] value Serial data
 */
 void M5AtomController::send(uint8_t value){
 
   uint8_t data[1] = {value};
 
-  // USB serial wired transmission
+  // Serial wired transmission
   Serial.println(value);
+  Serial1.println(value);
 
   // ESP-NOW wireless transmission
   esp_now_send(slave_address, data, sizeof(data));
